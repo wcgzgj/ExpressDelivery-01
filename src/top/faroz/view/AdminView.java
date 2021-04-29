@@ -38,6 +38,7 @@ public class AdminView {
                     DeleteView.getInput();
                     break;
                 case "3":
+                    UpdateView.getInput();
                     break;
                 case "4":
                     SearchView.print();

@@ -117,10 +117,20 @@ public class PackageDaoImpl implements PackageDao {
      */
     @Override
     public void update(Package newPackage) {
+        /**
+         * 这里有点不合规范
+         * 一般 ID 应该是用 雪花算法或者 UUID 生成的一个唯一值
+         * 我这里却将 ID 作为 快递单号（而且是可以被修改的）
+         *
+         * 但是这里的快递柜数是不会改变的
+         * 所有，这里我就将快递柜数作为一个临时的"ID"了
+         */
         for (int i = 0; i < 40; i++) {
-            if (cabinet[i]!=null && cabinet[i].getId().equals(newPackage.getId())) {
-                cabinet[i]=newPackage;
+            if (cabinet[i]!=null && cabinet[i].getLocation().equals(newPackage.getLocation())) {
+                cabinet[i].setId(newPackage.getId());
+                cabinet[i].setBusiness(newPackage.getBusiness());
             }
+
         }
     }
 }
