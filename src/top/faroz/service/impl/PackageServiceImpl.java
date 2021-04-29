@@ -55,4 +55,9 @@ public class PackageServiceImpl implements PackageService {
     public Package deleteById(String id) {
         return packageDao.deleteById(id);
     }
+
+    @Override
+    public void update(Package newPackage) {
+        packageDao.update(newPackage);
+    }
 }

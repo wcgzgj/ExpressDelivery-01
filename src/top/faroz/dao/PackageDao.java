@@ -19,4 +19,5 @@ public interface PackageDao {
     List<Package> selectAll();
     Package selectById(String id);
     Package deleteById(String id);
+    void update(Package newPackage);
 }

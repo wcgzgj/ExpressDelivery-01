@@ -1,5 +1,9 @@
 package top.faroz.view;
 
+import top.faroz.pojo.Package;
+import top.faroz.service.PackageService;
+import top.faroz.service.impl.PackageServiceImpl;
+
 import java.util.Scanner;
 
 /**
@@ -10,19 +14,18 @@ import java.util.Scanner;
  * @Version 1.0
  **/
 public class UpdateView {
+
     private static Scanner sc = new Scanner(System.in);
 
+    private static PackageService packageService = new PackageServiceImpl();
 
     /**
      * 类似于 vue 中的 template
      */
     public static void print() {
         System.out.println("\n\n");
-        System.out.println("------欢迎使用快递管理系统------");
-        System.out.println("------    请选择用户    ------");
-        System.out.println("1. admin");
-        System.out.println("2. 一般用户");
-        System.out.println("3. 退出系统");
+        System.out.println("------  请输入要修改的快递的单号  ------");
+        System.out.println("------  或输入 exit 退出       ------");
     }
 
     /**
@@ -30,33 +33,35 @@ public class UpdateView {
      */
     public static String getInput() {
         while (true) {
+            SearchView.print();
+            print();
             String input = sc.next();
-            switch (input) {
-                case "1":
-                    LoginView.print();
-                    String url = LoginView.getInput();
-                    if (url.equals("home")) {
-                        print();
-                        break;
-                    } else if (url.equals("success")){
-                        AdminView.print();
-                        AdminView.getInput();
-                        print();
-                    } else {
-                        System.out.println("\n\n 登录失败，退回首页");
-                        print();
-                        break;
-                    }
-                    break;
-                case "2":
-                    GuestView.print();
-                    GuestView.getInput();
-                    print();
-                    break;
-                case "3":
-                    return null;
-                default:
-                    System.out.println("输入错误，请重新输入");
+            if (input.equals("exit")) {
+                return "exit";
+            } else {
+                /**
+                 * 查询有无该单号
+                 */
+                Package daoPackage = packageService.selectById(input);
+                if (daoPackage==null) {
+                    System.out.println("不存在该包裹");
+                    return "fail";
+                }
+
+                /**
+                 * 根据单号，修改快递信息
+                 */
+                System.out.println("请输入 新的\"快递单号\" 和新的 \"快递公司\" 信息");
+                String newId = sc.next();
+                String newBusiness = sc.next();
+                /**
+                 * 生成新的 package
+                 */
+                Package newPackage = new Package(daoPackage.getLocation(), newId, newBusiness, daoPackage.getGetCode());
+                packageService.update(newPackage);
+                System.out.println("更新成功");
+                System.out.println("新的快递信息为:"+newPackage.toString());
+                return "success";
             }
         }
 

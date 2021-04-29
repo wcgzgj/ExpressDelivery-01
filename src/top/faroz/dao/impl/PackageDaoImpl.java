@@ -3,13 +3,12 @@ package top.faroz.dao.impl;
 import top.faroz.dao.PackageDao;
 import top.faroz.pojo.Package;
 
-import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @ClassName PackageDaoImpl
- * @Description TODO
+ * @Description Package的 Dao 层实现
  * @Author FARO_Z
  * @Date 2021/4/28 下午8:30
  * @Version 1.0
@@ -110,5 +109,18 @@ public class PackageDaoImpl implements PackageDao {
             }
         }
         return daoPackage;
+    }
+
+    /**
+     * 依据新传来的包裹信息，更新快递柜中的包裹
+     * @param newPackage
+     */
+    @Override
+    public void update(Package newPackage) {
+        for (int i = 0; i < 40; i++) {
+            if (cabinet[i]!=null && cabinet[i].getId().equals(newPackage.getId())) {
+                cabinet[i]=newPackage;
+            }
+        }
     }
 }

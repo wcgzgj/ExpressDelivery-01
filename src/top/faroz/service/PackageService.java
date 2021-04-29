@@ -12,4 +12,5 @@ public interface PackageService {
     List<Package> getAllPackage();
     Package selectById(String id);
     Package deleteById(String id);
+    void update(Package newPackage);
 }
