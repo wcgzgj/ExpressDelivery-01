@@ -4,6 +4,7 @@ import top.faroz.dao.PackageDao;
 import top.faroz.pojo.Package;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -130,7 +131,6 @@ public class PackageDaoImpl implements PackageDao {
                 cabinet[i].setId(newPackage.getId());
                 cabinet[i].setBusiness(newPackage.getBusiness());
             }
-
         }
     }
 }
