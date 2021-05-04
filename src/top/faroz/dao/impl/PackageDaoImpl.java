@@ -4,7 +4,6 @@ import top.faroz.dao.PackageDao;
 import top.faroz.pojo.Package;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -125,6 +124,9 @@ public class PackageDaoImpl implements PackageDao {
          *
          * 但是这里的快递柜数是不会改变的
          * 所有，这里我就将快递柜数作为一个临时的"ID"了
+         *
+         * 但是也因祸得福，因为 Location 作为了一个"主键"
+         * 反而能保证本应该作为主键的 ID，在被修改后，还能对快递进行修改
          */
         for (int i = 0; i < 40; i++) {
             if (cabinet[i]!=null && cabinet[i].getLocation().equals(newPackage.getLocation())) {
