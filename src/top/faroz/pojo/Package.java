@@ -1,5 +1,7 @@
 package top.faroz.pojo;
 
+import java.io.Serializable;
+
 /**
  * @ClassName Package
  * @Description 快递实体类
@@ -7,7 +9,7 @@ package top.faroz.pojo;
  * @Date 2021/4/28 下午8:11
  * @Version 1.0
  **/
-public class Package {
+public class Package implements Serializable {
     //柜子位置
     private Integer location;
     //快递单号

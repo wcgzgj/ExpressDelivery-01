@@ -2,7 +2,9 @@ package top.faroz.dao.impl;
 
 import top.faroz.dao.PackageDao;
 import top.faroz.pojo.Package;
+import top.faroz.util.FileUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,19 @@ public class PackageDaoImpl implements PackageDao {
     //自定义快递柜
     private static Package[] cabinet= new Package[cabinetSize];
 
+    public PackageDaoImpl() {
+        //初始化快递柜
+        try {
+            Object o = FileUtil.readObject("package");
+            if (o instanceof Package[]) {
+                cabinet= (Package[]) o;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Package selectByCode(Integer code) {
@@ -66,6 +81,12 @@ public class PackageDaoImpl implements PackageDao {
             return false;
         }
         cabinet[newPackage.getLocation()]=newPackage;
+        //增删改的时候，要对持久层进行操作
+        try {
+            FileUtil.writeObject(cabinet,"package");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
@@ -79,7 +100,6 @@ public class PackageDaoImpl implements PackageDao {
         for (int i = 0; i < 40; i++) {
             if (cabinet[i]!=null) {
                 Package daoPackage = cabinet[i];
-                //public Package(Integer location, String id, String business, Integer getCode)
                 list.add(new Package(daoPackage.getLocation(),
                         daoPackage.getId(),
                         daoPackage.getBusiness(),
@@ -108,6 +128,12 @@ public class PackageDaoImpl implements PackageDao {
                 cabinet[i]=null;
             }
         }
+        //增删改的时候，要对持久层进行操作
+        try {
+            FileUtil.writeObject(cabinet,"package");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return daoPackage;
     }
 
@@ -133,6 +159,12 @@ public class PackageDaoImpl implements PackageDao {
                 cabinet[i].setId(newPackage.getId());
                 cabinet[i].setBusiness(newPackage.getBusiness());
             }
+        }
+        //增删改的时候，要对持久层进行操作
+        try {
+            FileUtil.writeObject(cabinet,"package");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

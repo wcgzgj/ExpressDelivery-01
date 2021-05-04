@@ -1,5 +1,6 @@
 package top.faroz.pojo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Objects;
  * @Date 2021/4/28 下午8:13
  * @Version 1.0
  **/
-public class User {
+public class User implements Serializable {
     private String name;
     private String password;
 
