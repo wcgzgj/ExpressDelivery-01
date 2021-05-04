@@ -4,6 +4,7 @@ import top.faroz.dao.PackageDao;
 import top.faroz.pojo.Package;
 import top.faroz.util.FileUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,14 @@ public class PackageDaoImpl implements PackageDao {
     private static Package[] cabinet= new Package[cabinetSize];
 
     public PackageDaoImpl() {
+        // File file = new File("package.txt");
+        // if (!file.exists()) {
+        //     try {
+        //         file.createNewFile();
+        //     } catch (IOException e) {
+        //         e.printStackTrace();
+        //     }
+        // }
         //初始化快递柜
         try {
             Object o = FileUtil.readObject("package");
@@ -36,9 +45,9 @@ public class PackageDaoImpl implements PackageDao {
                 cabinet= (Package[]) o;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 

@@ -27,6 +27,8 @@ public class FileUtil {
         FileInputStream fis = new FileInputStream(fileName);
         ObjectInputStream ois = new ObjectInputStream(fis);
         Object o = ois.readObject();
+        ois.close();
+        fis.close();
         return o;
     }
 
@@ -45,5 +47,7 @@ public class FileUtil {
         FileOutputStream fos = new FileOutputStream(fileName);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(obj);
+        oos.close();
+        fos.close();
     }
 }
